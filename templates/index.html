@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teen Mental Wellness Predictor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+  <!-- ── Background orbs ── -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="shell">
+
+    <!-- ── Hero header ── -->
+    <header class="hero">
+      <div class="hero-badge">AI-Powered · Random Forest Model</div>
+      <h1>Teen Mental<br><span class="accent">Wellness</span> Predictor</h1>
+      <p class="hero-sub">Answer 12 questions about your digital habits and well-being.
+        Our model will estimate your overall mental health score (1 = best, 10 = most concerning)
+        and offer personalised guidance.</p>
+    </header>
+
+    <!-- ── Main card ── -->
+    <main class="card">
+
+      <!-- Step indicators -->
+      <div class="steps">
+        <div class="step active" data-step="1">
+          <span class="step-num">1</span><span class="step-label">About You</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step" data-step="2">
+          <span class="step-num">2</span><span class="step-label">Digital Life</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step" data-step="3">
+          <span class="step-num">3</span><span class="step-label">Well-being</span>
+        </div>
+      </div>
+
+      <form id="mhForm" novalidate>
+
+        <!-- ── Section 1: About You ── -->
+        <section class="form-section active" id="sec1">
+          <h2 class="section-title">About You</h2>
+
+          <div class="field-grid two-col">
+            <div class="field">
+              <label for="age">Age <span class="range-hint">(10 – 19)</span></label>
+              <div class="range-wrap">
+                <input type="range" id="age" name="age" min="10" max="19" value="15" step="1" />
+                <output for="age" id="age_out">15</output>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>Gender</label>
+              <div class="btn-group" id="gender_group">
+                <button type="button" class="tog active" data-val="0">Female</button>
+                <button type="button" class="tog" data-val="1">Male</button>
+                <button type="button" class="tog" data-val="2">Non-binary</button>
+              </div>
+              <input type="hidden" id="gender" name="gender" value="0" />
+            </div>
+          </div>
+
+          <div class="field-grid two-col">
+            <div class="field">
+              <label for="academic_performance">Academic Performance</label>
+              <div class="select-wrap">
+                <select id="academic_performance" name="academic_performance">
+                  <option value="1">Excellent</option>
+                  <option value="2" selected>Good</option>
+                  <option value="3">Average</option>
+                  <option value="4">Below Average</option>
+                  <option value="5">Poor</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="physical_activity">Physical Activity (hrs/week)</label>
+              <div class="range-wrap">
+                <input type="range" id="physical_activity" name="physical_activity" min="0" max="21" value="5" step="1" />
+                <output for="physical_activity" id="physical_activity_out">5</output>
+              </div>
+            </div>
+          </div>
+
+          <div class="nav-row">
+            <span></span>
+            <button type="button" class="btn-next" onclick="goTo(2)">Next →</button>
+          </div>
+        </section>
+
+        <!-- ── Section 2: Digital Life ── -->
+        <section class="form-section" id="sec2">
+          <h2 class="section-title">Digital Life</h2>
+
+          <div class="field-grid two-col">
+            <div class="field">
+              <label for="daily_social_media_hours">Social Media (hrs/day) <span class="range-hint">(0 – 16)</span></label>
+              <div class="range-wrap">
+                <input type="range" id="daily_social_media_hours" name="daily_social_media_hours" min="0" max="16" value="3" step="0.5" />
+                <output for="daily_social_media_hours" id="daily_social_media_hours_out">3</output>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="screen_time_before_sleep">Screen time before sleep (hrs)</label>
+              <div class="range-wrap">
+                <input type="range" id="screen_time_before_sleep" name="screen_time_before_sleep" min="0" max="6" value="1" step="0.5" />
+                <output for="screen_time_before_sleep" id="screen_time_before_sleep_out">1</output>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-grid two-col">
+            <div class="field">
+              <label for="platform_usage">Primary Platform</label>
+              <div class="select-wrap">
+                <select id="platform_usage" name="platform_usage">
+                  <option value="1">Instagram</option>
+                  <option value="2" selected>TikTok</option>
+                  <option value="3">YouTube</option>
+                  <option value="4">Snapchat</option>
+                  <option value="5">Twitter / X</option>
+                  <option value="6">Facebook</option>
+                  <option value="7">Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="addiction_level">Addiction Level <span class="range-hint">(1 = low, 10 = high)</span></label>
+              <div class="range-wrap">
+                <input type="range" id="addiction_level" name="addiction_level" min="1" max="10" value="4" step="1" />
+                <output for="addiction_level" id="addiction_level_out">4</output>
+              </div>
+            </div>
+          </div>
+
+          <div class="nav-row">
+            <button type="button" class="btn-back" onclick="goTo(1)">← Back</button>
+            <button type="button" class="btn-next" onclick="goTo(3)">Next →</button>
+          </div>
+        </section>
+
+        <!-- ── Section 3: Well-being ── -->
+        <section class="form-section" id="sec3">
+          <h2 class="section-title">Your Well-being</h2>
+
+          <div class="field-grid two-col">
+            <div class="field">
+              <label for="sleep_hours">Sleep per night (hrs)</label>
+              <div class="range-wrap">
+                <input type="range" id="sleep_hours" name="sleep_hours" min="3" max="12" value="8" step="0.5" />
+                <output for="sleep_hours" id="sleep_hours_out">8</output>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="social_interaction_level">Social Interaction Level <span class="range-hint">(1 = low, 10 = high)</span></label>
+              <div class="range-wrap">
+                <input type="range" id="social_interaction_level" name="social_interaction_level" min="1" max="10" value="5" step="1" />
+                <output for="social_interaction_level" id="social_interaction_level_out">5</output>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-grid two-col">
+            <div class="field">
+              <label for="anxiety_level">Anxiety Level <span class="range-hint">(1 = low, 10 = high)</span></label>
+              <div class="range-wrap">
+                <input type="range" id="anxiety_level" name="anxiety_level" min="1" max="10" value="4" step="1" />
+                <output for="anxiety_level" id="anxiety_level_out">4</output>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="depression_label">Depression Indicator <span class="range-hint">(1 = none, 5 = severe)</span></label>
+              <div class="range-wrap">
+                <input type="range" id="depression_label" name="depression_label" min="1" max="5" value="2" step="1" />
+                <output for="depression_label" id="depression_label_out">2</output>
+              </div>
+            </div>
+          </div>
+
+          <div class="nav-row">
+            <button type="button" class="btn-back" onclick="goTo(2)">← Back</button>
+            <button type="submit" class="btn-submit" id="submitBtn">
+              <span class="btn-text">Analyse My Wellness</span>
+              <span class="btn-spinner" hidden>●●●</span>
+            </button>
+          </div>
+        </section>
+
+      </form>
+
+      <!-- ── Result panel ── -->
+      <div id="resultPanel" class="result-panel" hidden>
+
+        <div class="result-header">
+          <button class="btn-reset" onclick="resetForm()">← New Assessment</button>
+          <h2>Your Wellness Report</h2>
+        </div>
+
+        <div class="score-ring-wrap">
+          <svg class="score-ring" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <circle class="ring-bg"   cx="100" cy="100" r="82" />
+            <circle class="ring-fill" cx="100" cy="100" r="82" id="ringFill" />
+          </svg>
+          <div class="score-inner">
+            <span class="score-num" id="scoreNum">–</span>
+            <span class="score-label" id="scoreLabel">–</span>
+            <span class="score-conf" id="scoreConf">– % confidence</span>
+          </div>
+        </div>
+
+        <!-- Probability bar chart -->
+        <div class="prob-section">
+          <h3 class="prob-title">Score Distribution</h3>
+          <div class="prob-bars" id="probBars"></div>
+        </div>
+
+        <!-- Recommendations -->
+        <div class="recs-section" id="recsSection">
+          <h3 class="recs-title">Personalised Recommendations</h3>
+          <ul class="recs-list" id="recsList"></ul>
+        </div>
+
+        <p class="disclaimer">This tool is for educational purposes only and does not
+          constitute medical advice. Please consult a qualified professional for
+          any health concerns.</p>
+      </div>
+
+    </main>
+
+  </div><!-- /.shell -->
+
+  <script src="/static/js/main.js"></script>
+</body>
+</html>
